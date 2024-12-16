@@ -1,6 +1,7 @@
 from typing import Any, Dict, Optional
 
 import httpx
+from httpx import Timeout
 
 
 class RestClient:
@@ -16,7 +17,13 @@ class RestClient:
             base_url (str): KISS AI stack server's base URL
             client (Optional[httpx.AsyncClient]): Optionally provide a custom AsyncClient instance.
         """
-        self._client = client or httpx.AsyncClient(base_url=base_url)
+        self.__timeout = Timeout(
+            connect=3600,
+            read=3600,
+            write=3600,
+            pool=3600
+        )
+        self._client = client or httpx.AsyncClient(base_url=base_url, timeout=self.__timeout)
 
     async def get(self, url: str, headers: Dict[str, str], params: Optional[Dict[str, Any]] = None) -> httpx.Response:
         """
@@ -38,7 +45,7 @@ class RestClient:
         except httpx.RequestError as e:
             raise RuntimeError(f'An error occurred while making GET request to {url}: {e}')
 
-    async def post(self, url: str, headers: Dict[str, str], request_body: Dict[str, Any],
+    async def post(self, url: str, request_body: Dict[str, Any], headers: Optional[Dict[str, str]] = None,
                    params: Optional[Dict[str, Any]] = None) -> httpx.Response:
         """
         Perform a POST request.
