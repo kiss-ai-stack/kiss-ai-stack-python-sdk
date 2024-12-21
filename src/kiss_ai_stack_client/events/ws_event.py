@@ -49,7 +49,7 @@ class WebSocketEvent(EventAbc):
         )
         await self.__client.connect()
 
-    async def authorize_agent(self, client_id: Optional[str] = None, client_secret: Optional[str] = None,
+    async def authorize_stack(self, client_id: Optional[str] = None, client_secret: Optional[str] = None,
                               scope: Optional[str] = None) -> SessionResponse:
         """
         AAuthorize and create/refresh a session. Either a scope or client_id and client_secret is required.
@@ -85,9 +85,9 @@ class WebSocketEvent(EventAbc):
             LOG.error(f'Authorization failed: {str(e)}')
             raise
 
-    async def destroy_agent(self, data: Optional[str] = None) -> GenericResponseBody:
+    async def destroy_stack(self, data: Optional[str] = None) -> GenericResponseBody:
         """
-        Destroy/close the current agent session.
+        Destroy/close the current stack session.
 
         :param data: Optional query
         :return: Generic response body with session closure result
@@ -98,12 +98,12 @@ class WebSocketEvent(EventAbc):
             return GenericResponseBody(**response)
 
         except Exception as e:
-            LOG.error(f'Failed to destroy agent session: {str(e)}')
+            LOG.error(f'Failed to destroy stack session: {str(e)}')
             raise
 
-    async def bootstrap_agent(self, data: Optional[str] = None) -> GenericResponseBody:
+    async def bootstrap_stack(self, data: Optional[str] = None) -> GenericResponseBody:
         """
-        Initialize and start the AI agent.
+        Initialize and start the AI Stack.
 
         :param data: Optional query
         :return: Generic response body with bootstrap result
@@ -113,7 +113,7 @@ class WebSocketEvent(EventAbc):
             return GenericResponseBody(**response)
 
         except Exception as e:
-            LOG.error(f'Failed to bootstrap agent: {str(e)}')
+            LOG.error(f'Failed to bootstrap stack: {str(e)}')
             raise
 
     async def generate_answer(self, data: Optional[str]) -> GenericResponseBody:

@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name="kiss-ai-stack-client",
-    version="0.1.0-alpha2",
-    description="KISS AI Stack's Python Client SDK - Simplify AI Agent Development",
+    version="0.1.0-alpha6",
+    description="KISS AI Stack's Python Client SDK for Server Stub",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     author="KISS AI Stack Python SDK, Lahiru Pathirage",
@@ -15,7 +15,7 @@ setup(
         "requests~=2.32.3",
         "websockets~=14.1",
         "httpx~=0.28.0",
-        "kiss-ai-stack-types~=0.1.0a2"
+        "kiss-ai-stack-types~=0.1.0a4"
     ],
     keywords=["ai", "agent", "machine-learning", "llm", "document-processing"],
     classifiers=[
